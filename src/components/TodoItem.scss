@@ -1,17 +1,14 @@
 $item-title-height: 18pt;
 .todo-item
 {
-    display:flex;
-    flex-direction: row;
-    float:left;
-    width:100%;
-    max-width: 750px;
-    padding:5px;
     .item-status
     {
-        margin-top: calc(#{$item-title-height}/2);
-        transform: scale(1.5);
-        padding: 5px;
+        /**/
+        .item-status-checkbox
+        {
+            margin-top: calc(#{$item-title-height}/2);
+            transform: scale(1.5);
+        }
     }
     .item-information
     {
@@ -26,12 +23,13 @@ $item-title-height: 18pt;
         {
 
         }
-        .item-operations
+    }
+    
+    .item-operations
+    {
+        .btn
         {
-            .btn
-            {
-                margin:15px;
-            }
+            max-height: 40px;
         }
     }
 }

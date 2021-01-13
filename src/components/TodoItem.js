@@ -8,18 +8,20 @@ class TodoItem extends Component
     render()
     {
         return (
-            <div className="row todo-item">
-                <input className="col-1 item-status" type="checkbox">
-                </input> 
-                <div className="col-7 item-information">
-                    <div className="item-title">
+            <div className="row todo-item d-flex justify-content-center">
+                <div className="col-2 item-status">
+                    <input className="item-status-checkbox" type="checkbox">
+                    </input> 
+                </div>
+                <div className="col-6 item-information">
+                    <div className="row item-title">
                         {this.props.title || "Test Title Here"}
                     </div>
-                    <div className="item-details">
+                    <div className="row item-details">
                         {this.props.message || "Message here"}
                     </div>
                 </div>
-                <div className="col-4 item-operations">
+                <div className="col-4 item-operations d-flex justify-content-center">
                     <button type="button" className="item-edit btn btn-outline-primary">
                         <FontAwesomeIcon icon={faEdit} />
                     </button>
