@@ -7,9 +7,17 @@ function App() {
       <div className="row justify-content-center list-title">
         <h1> My List </h1>
       </div>
-      <div className="row list-contents h-75">
+      <div className="row list-contents h-75 overflow-auto">
         <div className="container-fluid justify-content-center" style={{maxWidth:750}}>
           <TodoItem title="This is a Title" message="Hello!"></TodoItem>
+          <TodoItem title="This is Also a Title" message="How Are You?"></TodoItem>
+          <TodoItem title="This is Also a Title" message="How Are You?"></TodoItem>
+          <TodoItem title="This is Also a Title" message="How Are You?"></TodoItem>
+          <TodoItem title="This is Also a Title" message="How Are You?"></TodoItem>
+          <TodoItem title="This is Also a Title" message="How Are You?"></TodoItem>
+          <TodoItem title="This is Also a Title" message="How Are You?"></TodoItem>
+          <TodoItem title="This is Also a Title" message="How Are You?"></TodoItem>
+          <TodoItem title="This is Also a Title" message="How Are You?"></TodoItem>
           <TodoItem title="This is Also a Title" message="How Are You?"></TodoItem>
         </div>
       </div>
