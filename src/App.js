@@ -3,11 +3,11 @@ import TodoItem from './components/TodoItem';
 
 function App() {
   return (
-    <div className="container-fluid align-items-center App">
+    <div className="container-fluid d-flex flex-column justify-content-center h-100 App">
       <div className="row justify-content-center list-title">
         <h1> My List </h1>
       </div>
-      <div className="row list-contents">
+      <div className="row list-contents h-50">
         <div className="container-fluid justify-content-center" style={{maxWidth:750}}>
           <TodoItem title="This is a Title" message="Hello!"></TodoItem>
           <TodoItem title="This is Also a Title" message="How Are You?"></TodoItem>
