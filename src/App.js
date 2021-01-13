@@ -3,15 +3,18 @@ import TodoItem from './components/TodoItem';
 
 function App() {
   return (
-    <div className="container-fluid App">
-      <div className="row justify-content-center ">
+    <div className="container-fluid align-items-center App">
+      <div className="row justify-content-center list-title">
         <h1> My List </h1>
       </div>
-      <div className="row">
-        <div className="container-fluid justify-content-center">
+      <div className="row list-contents">
+        <div className="container-fluid justify-content-center" style={{maxWidth:750}}>
           <TodoItem title="This is a Title" message="Hello!"></TodoItem>
           <TodoItem title="This is Also a Title" message="How Are You?"></TodoItem>
         </div>
+      </div>
+      <div className="row justify-content-center list-operations">
+          <button type="button" className="btn btn-outline-primary">Add New Item</button>
       </div>
     </div>
   );

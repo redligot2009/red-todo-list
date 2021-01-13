@@ -8,8 +8,8 @@ class TodoItem extends Component
     render()
     {
         return (
-            <div className="row todo-item d-flex justify-content-center">
-                <div className="col-2 item-status">
+            <div className="row todo-item">
+                <div className="col-2 d-flex justify-content-center item-status">
                     <input className="item-status-checkbox" type="checkbox">
                     </input> 
                 </div>
