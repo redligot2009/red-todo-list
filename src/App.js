@@ -28,7 +28,7 @@ class App extends Component
           </div>
         </div>
         <div className="row list-contents h-50">
-          <div className="container-fluid justify-content-center h-100 d-flex flex-column overflow-auto" style={{maxWidth:750}}>
+          <div className="container-fluid justify-content-center h-100 overflow-auto" style={{maxWidth:750}}>
             <TodoItem title="This is a Title" listColor="#000000" message="Hello!"></TodoItem>
             <TodoItem title="This is Also a Title" message="How Are You?"></TodoItem>
             <TodoItem title="This is Also a Title" message="How Are You?"></TodoItem>
