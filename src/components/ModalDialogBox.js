@@ -4,10 +4,10 @@ import React, { Component } from "react";
 
 class ModalDialogBox extends Component 
 {
-    constructor(props)
+    constructor(props, dialogBoxName)
     {
         super(props);
-        this.state = {show: false, modalName: "edit-list-settings"}
+        this.state = {show: false, modalName: dialogBoxName};
     }
 
     openModal = () =>
@@ -36,6 +36,7 @@ class ModalDialogBox extends Component
             }
         }
     }
+
     renderBody()
     {
         return(
@@ -51,6 +52,7 @@ class ModalDialogBox extends Component
             </form>
         );
     }
+    
     render()
     {
         return (

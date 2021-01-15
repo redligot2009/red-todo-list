@@ -27,8 +27,8 @@ class App extends Component
             <i><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sollicitudin eget tortor vel aliquam. Curabitur velit lectus, sodales in massa tempor, convallis sollicitudin justo. </p></i>
           </div>
         </div>
-        <div className="row list-contents h-50 overflow-auto">
-          <div className="container-fluid justify-content-center" style={{maxWidth:750}}>
+        <div className="row list-contents h-50">
+          <div className="container-fluid justify-content-center h-100 d-flex flex-column overflow-auto" style={{maxWidth:750}}>
             <TodoItem title="This is a Title" listColor="#000000" message="Hello!"></TodoItem>
             <TodoItem title="This is Also a Title" message="How Are You?"></TodoItem>
             <TodoItem title="This is Also a Title" message="How Are You?"></TodoItem>
