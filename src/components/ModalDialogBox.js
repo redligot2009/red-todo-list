@@ -7,7 +7,7 @@ class ModalDialogBox extends Component
     constructor(props, dialogBoxName)
     {
         super(props);
-        this.state = {show: false, modalName: dialogBoxName};
+        this.state = {show: false || props.openModal, modalName: dialogBoxName};
     }
 
     openModal = () =>
@@ -15,10 +15,20 @@ class ModalDialogBox extends Component
         this.setState({show:true});
     }
 
-    closeModal = () =>
+    resetState()
     {
         this.setState({show:false});
+    }
+    
+    closeModal = () =>
+    {
+        this.resetState();
         this.props.onHide();
+    }
+
+    saveChanges = (data) =>
+    {
+        this.closeModal();
     }
 
     componentDidUpdate(prevProps)
@@ -39,7 +49,7 @@ class ModalDialogBox extends Component
 
     renderBody()
     {
-        return(
+        return (
             <form>
                 <div class="form-group">
                     <label> List Title </label>
@@ -52,7 +62,16 @@ class ModalDialogBox extends Component
             </form>
         );
     }
-    
+
+    renderTitle()
+    {
+        return (
+            <Modal.Title>
+                Insert Title Here
+            </Modal.Title>
+        );
+    }
+
     render()
     {
         return (
@@ -62,16 +81,14 @@ class ModalDialogBox extends Component
                 centered
                 >
                 <Modal.Header>
-                    <Modal.Title>
-                        Edit List Settings
-                    </Modal.Title>
+                    {this.renderTitle()}
                 </Modal.Header>
                 <Modal.Body>
                     {this.renderBody()}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="outline-primary"
-                    onClick={this.closeModal}>
+                    onClick={this.saveChanges}>
                         Save Changes
                     </Button>
                     <Button variant="outline-secondary" 
@@ -84,4 +101,4 @@ class ModalDialogBox extends Component
     }
 }
 
-export default EditItem;
+export default ModalDialogBox;

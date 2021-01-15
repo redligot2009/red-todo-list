@@ -1,81 +1,71 @@
 
-import { Modal, Button } from "react-bootstrap";
+import { Modal, Button, Form } from "react-bootstrap";
 import React, { Component } from "react";
+import ModalDialogBox from './ModalDialogBox';
 import './EditListSettings.scss';
 
-class EditItem extends Component 
+class EditListSettings extends ModalDialogBox 
 {
     constructor(props)
     {
-        super(props);
-        this.state = {show: false, modalName: "edit-list-settings"}
+        super(props, "edit-list-settings");
     }
 
-    openModal = () =>
-    {
-        this.setState({show:true});
+    countCharacters = (event) => {
+        const charCount = event.target.value.length;
+        this.setState({[event.target.id + '_length']: charCount})
     }
 
-    closeModal = () =>
-    {
-        this.setState({show:false});
-        this.props.onHide();
-    }
-
-    componentDidUpdate(prevProps)
-    {
-        const {show, modalName} = this.props;
-        if(prevProps.show !== show && prevProps.modalName === this.modalName)
-        {
-            if(show===true)
-            {
-                this.openModal();
-            }
-            else
-            {
-                this.closeModal();
-            }
-        }
-    }
-
-    render()
+    renderTitle()
     {
         return (
-            <Modal
-                show={this.state.show}
-                onHide={this.closeModal}
-                centered
-                >
-                <Modal.Header>
-                    <Modal.Title>
-                        Edit List Settings
-                    </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <form>
-                        <div class="form-group">
-                            <label> List Title </label>
-                            <input type="text" class="form-control"></input>
-                        </div>
-                        <div class="form-group">
-                            <label> List Description </label>
-                            <textarea class="form-control" rows="2"></textarea>
-                        </div>
-                    </form>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="outline-primary"
-                    onClick={this.closeModal}>
-                        Save Changes
-                    </Button>
-                    <Button variant="outline-secondary" 
-                    onClick={this.closeModal}>
-                        Cancel
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+            <Modal.Title>
+                Edit List Settings
+            </Modal.Title>
+        );
+    }
+
+    resetState()
+    {
+        super.resetState();
+        this.setState({
+            list_description_textarea_length: 0,
+            list_title_input_length: 0
+        })
+    }
+
+    renderBody()
+    {
+        let maxTitleLength = 50;
+        let maxDescriptionLength = 150;
+        return (
+            <Form>
+                <Form.Group>
+                    <Form.Label> 
+                        List Title <i> <small> ({this.state.list_title_input_length || 0} / {maxTitleLength}) </small> </i> 
+                    </Form.Label>
+                    <Form.Control 
+                        id="list_title_input"
+                        as="input" 
+                        maxlength={maxTitleLength}
+                        onChange={this.countCharacters}
+                    />
+                </Form.Group>
+                <Form.Group>
+                    <Form.Label> 
+                        List Description <i> <small> ({this.state.list_description_textarea_length || 0} / {maxDescriptionLength}) </small> </i> 
+                    </Form.Label>
+                    <Form.Control 
+                        id="list_description_textarea"
+                        as="textarea"
+                        rows="3"
+                        maxLength={maxDescriptionLength}
+                        onChange={this.countCharacters}
+                    />
+                </Form.Group>
+            </Form>
         );
     }
 }
 
-export default EditItem;
+export default EditListSettings;

@@ -1,8 +1,7 @@
 import './App.scss';
 import TodoItem from './components/TodoItem';
-import EditItem from './components/EditListSettings';
+import EditListSettings from './components/EditListSettings';
 import {Button} from 'react-bootstrap';
-import { Modal } from 'react-bootstrap';
 import { Component } from 'react';
 
 class App extends Component
@@ -16,7 +15,7 @@ class App extends Component
   {
     return (
       <div className="container-fluid d-flex flex-column justify-content-center h-100 App">
-        <EditItem 
+        <EditListSettings 
           show={this.state.openModal} 
           onHide={ 
             () => this.setState({openModal:false})
