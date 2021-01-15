@@ -1,6 +1,6 @@
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
-import React, {Component} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, {Component} from 'react';
 import './TodoItem.scss';
 
 class TodoItem extends Component 
