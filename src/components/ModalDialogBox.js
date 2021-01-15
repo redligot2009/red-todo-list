@@ -1,14 +1,13 @@
 
 import { Modal, Button } from "react-bootstrap";
 import React, { Component } from "react";
-import './EditItem.scss';
 
-class EditItem extends Component 
+class ModalDialogBox extends Component 
 {
     constructor(props)
     {
         super(props);
-        this.state = {show: false}
+        this.state = {show: false, modalName: "edit-list-settings"}
     }
 
     openModal = () =>
@@ -24,8 +23,8 @@ class EditItem extends Component
 
     componentDidUpdate(prevProps)
     {
-        const {show} = this.props;
-        if(prevProps.show !== show)
+        const {show, modalName} = this.props;
+        if(prevProps.show !== show && prevProps.modalName === this.modalName)
         {
             if(show===true)
             {
@@ -37,7 +36,21 @@ class EditItem extends Component
             }
         }
     }
-
+    renderBody()
+    {
+        return(
+            <form>
+                <div class="form-group">
+                    <label> List Title </label>
+                    <input type="text" class="form-control"></input>
+                </div>
+                <div class="form-group">
+                    <label> List Description </label>
+                    <textarea class="form-control" rows="2"></textarea>
+                </div>
+            </form>
+        );
+    }
     render()
     {
         return (
@@ -52,7 +65,7 @@ class EditItem extends Component
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Here will be the form.
+                    {this.renderBody()}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="outline-primary"
@@ -61,7 +74,7 @@ class EditItem extends Component
                     </Button>
                     <Button variant="outline-secondary" 
                     onClick={this.closeModal}>
-                        Close
+                        Cancel
                     </Button>
                 </Modal.Footer>
             </Modal>

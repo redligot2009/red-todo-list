@@ -1,11 +1,16 @@
 .App
 {
-  
-  .list-contents
+  .list-title
   {
+    text-align: center;
   }
   .list-operations
   {
     padding:15px;
+    .btn
+    {
+      margin-left: 5px;
+      margin-right: 5px;
+    }
   }
 }
