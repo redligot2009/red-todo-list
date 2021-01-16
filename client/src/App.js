@@ -12,33 +12,23 @@ export default class App extends Component
     this.state = {
       openModal: false, 
       modalName: "",
-      listItems: [
-        {
-          id: 1,
-          title: 'This is a Title',
-          description: "Hello!"
-        },
-        {
-          id: 2,
-          title: 'This is also a Title',
-          description: "How Are You?"
-        },
-        {
-          id: 3,
-          title: 'This is not a Title',
-          description: "How Well Are You?"
-        }
-      ],
+      listItems: [],
       listSettings: {
         title: 'My List',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sollicitudin eget tortor vel aliquam. Curabitur velit lectus, sodales in massa tempor, co'
-      },
-      users: []
+      }
     };
   }
 
   componentDidMount()
   {
+    fetch('/items')
+      .then(res => {
+        return res.json()
+      })
+      .then((listItems) => {
+        this.setState({listItems});
+      })
   }
 
   renderListItems()
@@ -48,6 +38,7 @@ export default class App extends Component
         {this.state.listItems.map(
             listItem => (
               <TodoItem 
+                key={listItem.id}
                 title={listItem.title}
                 description={listItem.description}
               />
