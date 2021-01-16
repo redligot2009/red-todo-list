@@ -4,40 +4,73 @@ import EditListSettings from './components/EditListSettings';
 import {Button} from 'react-bootstrap';
 import { Component } from 'react';
 
-class App extends Component
+export default class App extends Component
 {
   constructor(props)
   {
     super(props);
-    this.state = {openModal: false, modalName: ""};
+    this.state = {
+      openModal: false, 
+      modalName: "",
+      listItems: [
+        {
+          id: 1,
+          title: 'This is a Title',
+          description: "Hello!"
+        },
+        {
+          id: 2,
+          title: 'This is also a Title',
+          description: "How Are You?"
+        },
+        {
+          id: 3,
+          title: 'This is not a Title',
+          description: "How Well Are You?"
+        }
+      ],
+      listSettings: {
+        title: 'My List',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sollicitudin eget tortor vel aliquam. Curabitur velit lectus, sodales in massa tempor, co'
+      }
+    };
   }
+
+  renderListItems()
+  {
+    const item = (
+      <>
+        {this.state.listItems.map(
+            listItem => (
+              <TodoItem 
+                title={listItem.title}
+                description={listItem.description}
+              />
+        ))}
+      </>
+    );
+    return item;
+  }
+
   render()
   {
     return (
       <div className="container-fluid d-flex flex-column justify-content-center h-100 App">
         <EditListSettings 
+          listSettings={this.state.listSettings}
           show={this.state.openModal} 
           onHide={ 
             () => this.setState({openModal:false})
           }/>
         <div className="row d-flex flex-column align-items-center justify-content-center list-title">
           <div className="container-fluid" style={{maxWidth:750}}>
-            <h1> My List </h1>
-            <i><p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sollicitudin eget tortor vel aliquam. Curabitur velit lectus, sodales in massa tempor, convallis sollicitudin justo. </p></i>
+            <h1> {this.state.listSettings.title} </h1>
+            <p> {this.state.listSettings.description} </p>
           </div>
         </div>
         <div className="row list-contents h-50">
           <div className="container-fluid justify-content-center h-100 overflow-auto" style={{maxWidth:750}}>
-            <TodoItem title="This is a Title" listColor="#000000" message="Hello!"></TodoItem>
-            <TodoItem title="This is Also a Title" message="How Are You?"></TodoItem>
-            <TodoItem title="This is Also a Title" message="How Are You?"></TodoItem>
-            <TodoItem title="This is Also a Title" message="How Are You?"></TodoItem>
-            <TodoItem title="This is Also a Title" message="How Are You?"></TodoItem>
-            <TodoItem title="This is Also a Title" message="How Are You?"></TodoItem>
-            <TodoItem title="This is Also a Title" message="How Are You?"></TodoItem>
-            <TodoItem title="This is Also a Title" message="How Are You?"></TodoItem>
-            <TodoItem title="This is Also a Title" message="How Are You?"></TodoItem>
-            <TodoItem title="This is Also a Title" message="How Are You?"></TodoItem>
+            { this.renderListItems() }
           </div>
         </div>
         <div className="row justify-content-center list-operations">
@@ -55,5 +88,3 @@ class App extends Component
     );
   }
 }
-
-export default App;

@@ -2,9 +2,8 @@
 import { Modal, Button, Form } from "react-bootstrap";
 import React, { Component } from "react";
 import ModalDialogBox from './ModalDialogBox';
-import './EditListSettings.scss';
 
-class EditListSettings extends ModalDialogBox 
+export default class EditListSettings extends ModalDialogBox 
 {
     constructor(props)
     {
@@ -16,12 +15,14 @@ class EditListSettings extends ModalDialogBox
         this.setState({[event.target.id + '_length']: charCount})
     }
 
-    renderTitle()
+    renderHeader()
     {
         return (
-            <Modal.Title>
-                Edit List Settings
-            </Modal.Title>
+            <>
+                <Modal.Title>
+                    Edit List Settings
+                </Modal.Title>
+            </>
         );
     }
 
@@ -31,7 +32,7 @@ class EditListSettings extends ModalDialogBox
         this.setState({
             list_description_textarea_length: 0,
             list_title_input_length: 0
-        })
+        });
     }
 
     renderBody()
@@ -42,30 +43,36 @@ class EditListSettings extends ModalDialogBox
             <Form>
                 <Form.Group>
                     <Form.Label> 
-                        List Title <i> <small> ({this.state.list_title_input_length || 0} / {maxTitleLength}) </small> </i> 
+                        List Title
                     </Form.Label>
                     <Form.Control 
                         id="list_title_input"
                         as="input" 
                         maxlength={maxTitleLength}
                         onChange={this.countCharacters}
+                        defaultValue={this.props.listSettings.title}
                     />
+                    <Form.Text>
+                        ({this.state.list_title_input_length || this.props.listSettings.title.length} / {maxTitleLength})
+                    </Form.Text>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label> 
-                        List Description <i> <small> ({this.state.list_description_textarea_length || 0} / {maxDescriptionLength}) </small> </i> 
+                        List Description
                     </Form.Label>
                     <Form.Control 
                         id="list_description_textarea"
                         as="textarea"
                         rows="3"
                         maxLength={maxDescriptionLength}
+                        defaultValue={this.props.listSettings.description}
                         onChange={this.countCharacters}
                     />
+                    <Form.Text>
+                        ({this.state.list_description_textarea_length || this.props.listSettings.description.length} / {maxDescriptionLength})
+                    </Form.Text>
                 </Form.Group>
             </Form>
         );
     }
 }
-
-export default EditListSettings;

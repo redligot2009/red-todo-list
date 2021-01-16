@@ -47,6 +47,15 @@ class ModalDialogBox extends Component
         }
     }
 
+    renderHeader()
+    {
+        return (
+            <Modal.Title>
+                Insert Title Here
+            </Modal.Title>
+        );
+    }
+
     renderBody()
     {
         return (
@@ -63,13 +72,23 @@ class ModalDialogBox extends Component
         );
     }
 
-    renderTitle()
+    renderFooter()
     {
         return (
-            <Modal.Title>
-                Insert Title Here
-            </Modal.Title>
+            <>
+            <Button variant="outline-primary"
+                onClick={this.saveChanges}>
+                    Save Changes
+            </Button>
+            <Button 
+                    variant="outline-secondary" 
+                    onClick={this.closeModal}
+                >
+                    Cancel
+            </Button>
+            </>
         );
+        
     }
 
     render()
@@ -77,24 +96,17 @@ class ModalDialogBox extends Component
         return (
             <Modal
                 show={this.state.show}
-                onHide={this.closeModal}
+                onHide={this.closeModal} 
                 centered
-                >
+            >
                 <Modal.Header>
-                    {this.renderTitle()}
+                    {this.renderHeader()}
                 </Modal.Header>
                 <Modal.Body>
                     {this.renderBody()}
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="outline-primary"
-                    onClick={this.saveChanges}>
-                        Save Changes
-                    </Button>
-                    <Button variant="outline-secondary" 
-                    onClick={this.closeModal}>
-                        Cancel
-                    </Button>
+                    {this.renderFooter()}
                 </Modal.Footer>
             </Modal>
         );
