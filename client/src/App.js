@@ -51,7 +51,7 @@ export default class App extends Component
   render()
   {
     return (
-      <div className="container-fluid d-flex flex-column justify-content-center h-100 App">
+      <div className="container-fluid d-flex flex-column justify-content-center h-100 overflow-auto App">
         <EditListSettings 
           listSettings={this.state.listSettings}
           show={this.state.openModal} 

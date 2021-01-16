@@ -1,12 +1,14 @@
 .App
 {
+  min-height: 500px;
   .list-title
   {
+    padding: 5px;
     text-align: center;
   }
   .list-operations
   {
-    padding:15px;
+    margin:15px;
     .btn
     {
       margin-left: 5px;
