@@ -37,8 +37,12 @@ export default class TodoItem extends Component
                 />
                 <div className="row todo-item">
                     <div className="col-2 d-flex justify-content-center item-status">
-                        <input className="item-status-checkbox" type="checkbox">
-                        </input> 
+                        <div className="custom-control custom-checkbox">
+                            <input className="item-status-checkbox custom-control-input" type="checkbox" />
+                            <label class="custom-control-label" for="customCheck1">
+                                <span class="text-hide">Invisible</span>
+                            </label>
+                        </div>
                     </div>
                     <div className="col-6 item-information">
                         <div className="row item-title">
@@ -48,7 +52,7 @@ export default class TodoItem extends Component
                             {this.props.description || "Message here"}
                         </div>
                     </div>
-                    <div className="col-4 item-operations d-flex justify-content-center">
+                    <div className="col-4 item-operations d-flex justify-content-end">
                         <button 
                             type="button" 
                             className="item-edit btn btn-outline-primary"

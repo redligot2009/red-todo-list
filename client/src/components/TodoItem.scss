@@ -2,13 +2,22 @@ $item-title-height: 18pt;
 .todo-item
 {
     padding-bottom: 15px;
+    padding-top: 15px;
     .item-status
     {
         /**/
-        .item-status-checkbox
+        .custom-control-input
         {
-            margin-top: calc(#{$item-title-height}/2);
+            z-index:100;
+        }
+        .custom-checkbox
+        {
+            margin-top: calc(#{$item-title-height}/1.8);
             transform: scale(1.5);
+        }
+        .custom-control-label 
+        {
+            vertical-align: top;
         }
     }
     .item-information
