@@ -32,8 +32,13 @@ export default class App extends Component
       listSettings: {
         title: 'My List',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sollicitudin eget tortor vel aliquam. Curabitur velit lectus, sodales in massa tempor, co'
-      }
+      },
+      users: []
     };
+  }
+
+  componentDidMount()
+  {
   }
 
   renderListItems()
