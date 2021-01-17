@@ -1,7 +1,7 @@
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, {Component} from 'react';
-import EditItem from './EditItem';
+import EditItem from './modals/EditItem';
 import './TodoItem.scss';
 
 export default class TodoItem extends Component 
@@ -39,8 +39,8 @@ export default class TodoItem extends Component
                     <div className="col-2 d-flex justify-content-center item-status">
                         <div className="custom-control custom-checkbox">
                             <input className="item-status-checkbox custom-control-input" type="checkbox" />
-                            <label class="custom-control-label" for="customCheck1">
-                                <span class="text-hide">Invisible</span>
+                            <label className="custom-control-label">
+                                <span className="text-hide">Invisible</span>
                             </label>
                         </div>
                     </div>

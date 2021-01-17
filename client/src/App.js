@@ -1,8 +1,16 @@
+// STYLES
 import './App.scss';
-import TodoItem from './components/TodoItem';
-import EditListSettings from './components/EditListSettings';
+
+// LIBRARY IMPORTS
 import {Button} from 'react-bootstrap';
 import { Component } from 'react';
+
+// REGULAR COMPONENTS
+import TodoItem from './components/TodoItem';
+
+//MODAL COMPONENTS
+import EditListSettings from './components/modals/EditListSettings';
+import AddItem from './components/modals/AddItem';
 
 export default class App extends Component
 {
@@ -18,6 +26,8 @@ export default class App extends Component
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sollicitudin eget tortor vel aliquam. Curabitur velit lectus, sodales in massa tempor, co'
       }
     };
+    this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.handleOpenModal = this.handleOpenModal.bind(this);
   }
 
   componentDidMount()
@@ -30,6 +40,31 @@ export default class App extends Component
         this.setState({listItems});
       })
   }
+
+//HANDLE MODAL EVENTS
+  
+  handleCloseModal()
+  {
+    this.setState(state => ({
+      openModal:false,
+      modalName:''
+    }));
+  }
+
+  handleOpenModal (openModalName)
+  {
+    this.setState(state => ({
+      openModal:true,
+      modalName: openModalName
+    }));
+  }
+
+  handleShowModal(modalName)
+  {
+    return (this.state.modalName===modalName ? this.state.openModal : 0);
+  }
+
+// RENDER LIST ITEMS
 
   renderListItems()
   {
@@ -54,10 +89,13 @@ export default class App extends Component
       <div className="container-fluid d-flex flex-column justify-content-center h-100 overflow-auto App">
         <EditListSettings 
           listSettings={this.state.listSettings}
-          show={this.state.openModal} 
-          onHide={ 
-            () => this.setState({openModal:false})
-          }/>
+          show={this.handleShowModal("edit-list-settings")} 
+          onHide={this.handleCloseModal}
+        />
+        <AddItem
+          show={this.handleShowModal("add-item")}
+          onHide={this.handleCloseModal}
+        />
         <div className="row d-flex flex-column align-items-center justify-content-center list-title">
           <div className="container-fluid" style={{maxWidth:750}}>
             <h1> {this.state.listSettings.title} </h1>
@@ -70,13 +108,16 @@ export default class App extends Component
           </div>
         </div>
         <div className="row justify-content-center list-operations">
-            <Button variant="outline-primary">
+            <Button 
+              variant="outline-primary"
+              onClick={()=>this.handleOpenModal("add-item")}
+            >
               Add New Item
             </Button>
-            <Button variant="outline-primary"
-              onClick={
-                () => this.setState({openModal: true, modalName: "edit-list-settings"})
-              }>
+            <Button 
+              variant="outline-primary"
+              onClick={() => this.handleOpenModal("edit-list-settings")}
+            >
               List Settings
             </Button>
         </div>

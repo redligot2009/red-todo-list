@@ -1,7 +1,7 @@
 
 import { Modal, Button, Form } from "react-bootstrap";
 import React, { Component } from "react";
-import ModalDialogBox from './ModalDialogBox';
+import ModalDialogBox from '../ModalDialogBox';
 
 export default class EditListSettings extends ModalDialogBox 
 {
@@ -48,9 +48,10 @@ export default class EditListSettings extends ModalDialogBox
                     <Form.Control 
                         id="list_title_input"
                         as="input" 
-                        maxlength={maxTitleLength}
+                        maxLength={maxTitleLength}
                         onChange={this.countCharacters}
                         defaultValue={this.props.listSettings.title}
+                        placeholder="Enter list title here."
                     />
                     <Form.Text>
                         ({this.state.list_title_input_length || this.props.listSettings.title.length} / {maxTitleLength})
@@ -67,6 +68,7 @@ export default class EditListSettings extends ModalDialogBox
                         maxLength={maxDescriptionLength}
                         defaultValue={this.props.listSettings.description}
                         onChange={this.countCharacters}
+                        placeholder="Enter list description here."
                     />
                     <Form.Text>
                         ({this.state.list_description_textarea_length || this.props.listSettings.description.length} / {maxDescriptionLength})

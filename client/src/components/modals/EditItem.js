@@ -1,6 +1,6 @@
 import { Modal, Button, Form } from "react-bootstrap";
 import React, { Component } from "react";
-import ModalDialogBox from './ModalDialogBox';
+import ModalDialogBox from '../ModalDialogBox';
 
 export default class EditItem extends ModalDialogBox
 {
@@ -27,19 +27,20 @@ export default class EditItem extends ModalDialogBox
                 <Form>
                     <Form.Group controlId="listTitle">
                         <Form.Label>
-                            List Title
+                            Item Title
                         </Form.Label>
                         <Form.Control
                             id="item-title"
                             as="input"
                             maxlength="50"
                             defaultValue={this.props.itemTitle || ''}
+                            placeholder="Enter item title here."
                         />
                     </Form.Group>
                     
                     <Form.Group controlId="listDescription">
                         <Form.Label>
-                            List Description
+                            Item Description
                         </Form.Label>
                         <Form.Control
                             id="item-description"
@@ -47,6 +48,7 @@ export default class EditItem extends ModalDialogBox
                             rows="3"
                             maxlength="150"
                             defaultValue={this.props.itemDescription || ''}
+                            placeholder="Enter item description here."
                         />
                     </Form.Group>
                     

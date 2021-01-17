@@ -7,7 +7,7 @@ class ModalDialogBox extends Component
     constructor(props, dialogBoxName)
     {
         super(props);
-        this.state = {show: false || props.openModal, modalName: dialogBoxName};
+        this.state = {show: (false || props.openModal), modalName: dialogBoxName};
     }
 
     openModal = () =>
@@ -33,14 +33,14 @@ class ModalDialogBox extends Component
 
     componentDidUpdate(prevProps)
     {
-        const {show, modalName} = this.props;
-        if(prevProps.show !== show && prevProps.modalName === this.modalName)
+        const {show} = this.props;
+        if(prevProps.show !== show)
         {
             if(show===true)
             {
                 this.openModal();
             }
-            else
+            else if(show == false)
             {
                 this.closeModal();
             }
@@ -59,16 +59,11 @@ class ModalDialogBox extends Component
     renderBody()
     {
         return (
-            <form>
-                <div class="form-group">
-                    <label> List Title </label>
-                    <input type="text" class="form-control"></input>
+            <>
+                <div>
+                    Test Body Here
                 </div>
-                <div class="form-group">
-                    <label> List Description </label>
-                    <textarea class="form-control" rows="2"></textarea>
-                </div>
-            </form>
+            </>
         );
     }
 
@@ -76,16 +71,18 @@ class ModalDialogBox extends Component
     {
         return (
             <>
-            <Button variant="outline-primary"
-                onClick={this.saveChanges}>
+                <Button 
+                    variant="outline-primary"
+                    onClick={this.saveChanges}
+                >
                     Save Changes
-            </Button>
-            <Button 
+                </Button>
+                <Button 
                     variant="outline-secondary" 
                     onClick={this.closeModal}
                 >
                     Cancel
-            </Button>
+                </Button>
             </>
         );
         
