@@ -41,7 +41,7 @@ export default class App extends Component
       })
   }
 
-//HANDLE MODAL EVENTS
+  //HANDLE MODAL EVENTS
   
   handleCloseModal()
   {
@@ -64,7 +64,7 @@ export default class App extends Component
     return (this.state.modalName===modalName ? this.state.openModal : 0);
   }
 
-// RENDER LIST ITEMS
+  // RENDER LIST ITEMS
 
   renderListItems()
   {
