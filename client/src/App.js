@@ -12,6 +12,9 @@ import TodoItem from './components/TodoItem';
 import EditListSettings from './components/modals/EditListSettings';
 import AddItem from './components/modals/AddItem';
 
+// SERVICES
+import ItemDataService from './services/items.service';
+
 export default class App extends Component
 {
   constructor(props)
@@ -30,14 +33,62 @@ export default class App extends Component
     this.handleOpenModal = this.handleOpenModal.bind(this);
   }
 
+  listItemsContent = [
+    {
+      itemTitle: "This is a Title",
+      itemDescription: "Hello!",
+      checked: false
+    },
+    {
+      itemTitle: "This is also a Title",
+      itemDescription: "How Are You?",
+      checked: false
+    },
+    {
+      itemTitle: "This is not a Title",
+      itemDescription: "How Well Are You?",
+      checked: true
+    }
+  ];
+
+  //TEST FUNCTION
+  populateList()
+  {
+    this.listItemsContent.forEach(
+      (item) =>
+      {
+        var data = {
+          itemTitle: item.itemTitle,
+          itemDescription: item.itemDescription,
+          checked: item.checked
+        };
+        ItemDataService.create(data)
+          .then (response=>{
+            console.log(response.data);
+          })
+          .catch (e=>{
+            console.log(e);
+          });
+      });
+  }
+
   componentDidMount()
   {
-    fetch('/items')
-      .then(res => {
-        return res.json()
+    // TEST CODE
+    //this.populateList();
+
+    // Get all items in list from database through backend REST api
+    ItemDataService.getAll()
+      .then(response=>{
+        this.setState({
+          listItems: response.data
+        });
+        this.state.listItems = response.data;
+        console.log(response.data);
+        console.log(this.state.listItems);
       })
-      .then((listItems) => {
-        this.setState({listItems});
+      .catch(e=>{
+        console.log(e);
       })
   }
 
@@ -74,8 +125,9 @@ export default class App extends Component
             listItem => (
               <TodoItem 
                 key={listItem.id}
-                title={listItem.title}
-                description={listItem.description}
+                title={listItem.itemTitle}
+                description={listItem.itemDescription}
+                checked={listItem.checked}
               />
         ))}
       </>

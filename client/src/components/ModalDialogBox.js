@@ -40,7 +40,7 @@ class ModalDialogBox extends Component
             {
                 this.openModal();
             }
-            else if(show == false)
+            else
             {
                 this.closeModal();
             }

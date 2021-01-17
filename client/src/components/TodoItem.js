@@ -11,8 +11,9 @@ export default class TodoItem extends Component
         super(props);
         this.state={
             openEditModal: false,
-            itemTitle:'',
-            itemDescription:''
+            itemTitle:this.props.itemTitle || '',
+            itemDescription:this.props.itemDescription || '',
+            checked:this.props.checked || false
         };
     }
 
@@ -38,7 +39,11 @@ export default class TodoItem extends Component
                 <div className="row todo-item">
                     <div className="col-2 d-flex justify-content-center item-status">
                         <div className="custom-control custom-checkbox">
-                            <input className="item-status-checkbox custom-control-input" type="checkbox" />
+                            <input 
+                                className="item-status-checkbox custom-control-input" 
+                                type="checkbox" 
+                                defaultChecked={this.state.checked} 
+                            />
                             <label className="custom-control-label">
                                 <span className="text-hide">Invisible</span>
                             </label>

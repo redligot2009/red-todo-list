@@ -25,20 +25,20 @@ export default class EditItem extends ModalDialogBox
         return (
             <>
                 <Form>
-                    <Form.Group controlId="listTitle">
+                    <Form.Group id="listTitle">
                         <Form.Label>
                             Item Title
                         </Form.Label>
                         <Form.Control
                             id="item-title"
                             as="input"
-                            maxlength="50"
+                            maxLength="50"
                             defaultValue={this.props.itemTitle || ''}
                             placeholder="Enter item title here."
                         />
                     </Form.Group>
                     
-                    <Form.Group controlId="listDescription">
+                    <Form.Group id="listDescription">
                         <Form.Label>
                             Item Description
                         </Form.Label>
@@ -46,7 +46,7 @@ export default class EditItem extends ModalDialogBox
                             id="item-description"
                             as="textarea"
                             rows="3"
-                            maxlength="150"
+                            maxLength="150"
                             defaultValue={this.props.itemDescription || ''}
                             placeholder="Enter item description here."
                         />
