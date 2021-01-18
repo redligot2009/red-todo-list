@@ -18,7 +18,7 @@ import ItemDataService from './services/items.service';
 export default class App extends Component
 {
 
-  // TEST FUNCTION
+  // TEST FUNCTIONS
   listItemsContent = [
     {
       itemTitle: "This is a Title",
@@ -57,7 +57,7 @@ export default class App extends Component
       });
   }
 
-  // Constructor + Component methods
+  // CONSTRUCTOR + COMPONENT METHODS
   constructor(props)
   {
     super(props);
