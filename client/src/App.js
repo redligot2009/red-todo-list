@@ -17,22 +17,8 @@ import ItemDataService from './services/items.service';
 
 export default class App extends Component
 {
-  constructor(props)
-  {
-    super(props);
-    this.state = {
-      openModal: false, 
-      modalName: "",
-      listItems: [],
-      listSettings: {
-        title: 'My List',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sollicitudin eget tortor vel aliquam. Curabitur velit lectus, sodales in massa tempor, co'
-      }
-    };
-    this.handleCloseModal = this.handleCloseModal.bind(this);
-    this.handleOpenModal = this.handleOpenModal.bind(this);
-  }
 
+  // TEST FUNCTION
   listItemsContent = [
     {
       itemTitle: "This is a Title",
@@ -51,7 +37,6 @@ export default class App extends Component
     }
   ];
 
-  //TEST FUNCTION
   populateList()
   {
     this.listItemsContent.forEach(
@@ -72,28 +57,50 @@ export default class App extends Component
       });
   }
 
+  // Constructor + Component methods
+  constructor(props)
+  {
+    super(props);
+    this.state = {
+      openModal: false, 
+      modalName: "",
+      listItems: [],
+      listSettings: {
+        title: 'My List',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sollicitudin eget tortor vel aliquam. Curabitur velit lectus, sodales in massa tempor, co'
+      }
+    };
+    this.handleCloseModal = this.handleCloseModal.bind(this);
+    this.handleOpenModal = this.handleOpenModal.bind(this);
+    this.retrieveList = this.retrieveList.bind(this);
+  }
+
   componentDidMount()
   {
     // TEST CODE
     //this.populateList();
 
     // Get all items in list from database through backend REST api
+    this.retrieveList();
+  }
+
+  // DATABASE EVENTS
+  retrieveList ()
+  {
+    console.log("Refreshed list items.");
     ItemDataService.getAll()
       .then(response=>{
         this.setState({
           listItems: response.data
         });
         this.state.listItems = response.data;
-        console.log(response.data);
-        console.log(this.state.listItems);
       })
       .catch(e=>{
         console.log(e);
-      })
+      });
   }
 
-  //HANDLE MODAL EVENTS
-  
+  // HANDLE MODAL EVENTS
   handleCloseModal()
   {
     this.setState(state => ({
@@ -115,8 +122,22 @@ export default class App extends Component
     return (this.state.modalName===modalName ? this.state.openModal : 0);
   }
 
-  // RENDER LIST ITEMS
+  // HANDLE LIST ITEM EVENTS
+  handleDeleteItem = (itemId) =>
+  {
+    console.log(itemId);
+    // Delete item on the UI
+    const items = this.state.listItems.filter(item => item.id !== itemId);
+    this.setState({listItems: items});
+    // Delete item from database
+    ItemDataService.delete(itemId)
+      .catch((e)=>
+      {
+        console.log(e);
+      });
+  }
 
+  // RENDER LIST ITEMS
   renderListItems()
   {
     const item = (
@@ -125,9 +146,12 @@ export default class App extends Component
             listItem => (
               <TodoItem 
                 key={listItem.id}
-                title={listItem.itemTitle}
-                description={listItem.itemDescription}
+                id={listItem.id}
+                itemTitle={listItem.itemTitle}
+                itemDescription={listItem.itemDescription}
                 checked={listItem.checked}
+                onDelete={this.handleDeleteItem}
+                onEdit={this.retrieveList}
               />
         ))}
       </>
@@ -135,6 +159,7 @@ export default class App extends Component
     return item;
   }
 
+  // RENDER APP
   render()
   {
     return (

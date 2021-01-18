@@ -8,9 +8,13 @@ class ModalDialogBox extends Component
     {
         super(props);
         this.state = {show: (false || props.openModal), modalName: dialogBoxName};
+        // Bind modal methods
+        this.closeModal = this.closeModal.bind(this);
+        this.openModal = this.openModal.bind(this);
+        this.saveChanges = this.saveChanges.bind(this);
     }
 
-    openModal = () =>
+    openModal ()
     {
         this.setState({show:true});
     }
@@ -20,13 +24,13 @@ class ModalDialogBox extends Component
         this.setState({show:false});
     }
     
-    closeModal = () =>
+    closeModal ()
     {
         this.resetState();
         this.props.onHide();
     }
 
-    saveChanges = (data) =>
+    saveChanges ()
     {
         this.closeModal();
     }

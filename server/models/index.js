@@ -12,6 +12,6 @@ db.url = dbConfig.url;
 /*  Create new collection "items" which takes 
     in all Item documents created.
 */
-db.items = require("./Item.js")(mongoose);
+db.items = require("./ItemModel.js")(mongoose);
 
 module.exports = db;

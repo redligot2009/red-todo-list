@@ -2,13 +2,42 @@ import { Modal, Button, Form } from "react-bootstrap";
 import React, { Component } from "react";
 import ModalDialogBox from '../ModalDialogBox';
 
+// Import 
+
+import ItemDataService from '../../services/items.service';
+import axios from "axios";
+
 export default class EditItem extends ModalDialogBox
 {
     constructor(props)
     {
         super(props,"edit-item");
+        this.state = {
+            id: this.props.id,
+            itemTitle: this.props.itemTitle,
+            itemDescription: this.props.itemDescription
+        };
     }
     
+    async saveChanges ()
+    {
+        super.saveChanges();
+        let data ={
+            itemTitle: this.state.itemTitle,
+            itemDescription: this.state.itemDescription
+        };
+        // Update item fields
+        await ItemDataService.update(this.state.id, data)
+            .then(res=>{
+                console.log("Item updated successfully! " + res.data);
+            })
+            .catch(e=>{
+                console.log(e);
+            });
+        this.props.onEdit();
+    }
+
+    // RENDER COMPONENT
     renderHeader()
     {
         return (
@@ -33,8 +62,10 @@ export default class EditItem extends ModalDialogBox
                             id="item-title"
                             as="input"
                             maxLength="50"
-                            defaultValue={this.props.itemTitle || ''}
+                            value={this.state.itemTitle}
+                            defaultValue={this.props.itemTitle}
                             placeholder="Enter item title here."
+                            onChange={e => this.setState({ itemTitle: e.target.value })}
                         />
                     </Form.Group>
                     
@@ -47,8 +78,10 @@ export default class EditItem extends ModalDialogBox
                             as="textarea"
                             rows="3"
                             maxLength="150"
-                            defaultValue={this.props.itemDescription || ''}
+                            value={this.state.itemDescription}
+                            defaultValue={this.props.itemDescription}
                             placeholder="Enter item description here."
+                            onChange={e => this.setState({ itemDescription: e.target.value })}
                         />
                     </Form.Group>
                     

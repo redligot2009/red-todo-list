@@ -1,4 +1,4 @@
-var Item = require('../models/Item');
+var Item = require('../models/ItemModel');
 var mongoose = require('mongoose');
 
 listItems = [
@@ -36,8 +36,6 @@ exports.create = (req,res) =>
 //Retrieve all items in database (GET)
 exports.findAll = (req,res) =>
 {
-    //const title = req.query.title;
-    //let condition = title 
     Item.find({})
         .then(data=>{
             res.json(data);
@@ -71,16 +69,54 @@ exports.findItem = (req,res) =>
         });
 };
 
+// Update item data (PUT)
+exports.update = (req,res) => {
+    if(!req.body)
+    {
+        return res.status(400).send({
+            message: "Data to update can not be empty!"
+        });
+    }
+    const id = req.params.id;
+    Item.findByIdAndUpdate(id,req.body,{useFindAndModify:false})
+        .then(data=>{
+            if(!data)
+            {
+                res.status(404).send({
+                    message: `Cannot update Item with id=${id}. Maybe Item was not found!`
+                });
+            }
+            else
+            {
+                res.send({ message: "Item was updated successfully." });
+            }
+        })
+        .catch(err=>{
+            res.status(500).send({
+                message: "Error updating Item with id=" + id
+            });
+        });
+}
+
 //Delete item from list based on id (DEL)
 exports.deleteItem = (req,res) =>
 {
     const id = req.params.id;
 
-    Item.findByIdAndRemove(id)
+    Item.findByIdAndDelete(id)
         .then(data=> {
-            res.status(404).send({
-                message: "Cannot delete item with id: " + id + ". Item might not have been found."
-            })
+            if(!data)
+            {
+                res.status(404).send({
+                    message: "Cannot delete item with id: " + id + ". Item might not have been found."
+                })
+            }
+            else
+            {
+                res.send({
+                    message: "Item was deleted successfully!"
+                });
+            }
         })
         .catch(err=>{
             res.status(500).send({
