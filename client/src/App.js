@@ -80,10 +80,22 @@ export default class App extends Component
     this.retrieveListSettings();
   }
 
+  // DATA POLLING (UPDATE LIST SETTINGS + LIST ITEMS EVERY SECOND)
+  componentDidMount() {
+    this.interval = setInterval(() => {
+      this.retrieveList();
+      this.retrieveListSettings();
+    }, 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.interval);
+    this.interval = null;
+  }
+
   // DATABASE EVENTS
   async retrieveList ()
   {
-    console.log("Refreshed list items.");
+    //console.log("Retrieved list items.");
     await ItemDataService.getAll()
       .then(response=>{
         this.setState({
@@ -97,7 +109,7 @@ export default class App extends Component
 
   async retrieveListSettings()
   {
-    console.log("Retrieved list settings.");
+    //console.log("Retrieved list settings.");
     await ListSettingsDataService.get()
       .then(response=>{
         this.setState({

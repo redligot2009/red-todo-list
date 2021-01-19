@@ -24,7 +24,14 @@ export default class TodoItem extends Component
         this.handleCheck = this.handleCheck.bind(this);
     }
 
-    componentDidUpdate
+    // Update check
+    componentDidUpdate(prevProps)
+    {
+        if(prevProps.checked !== this.props.checked)
+        {
+            this.setState({checked:this.props.checked});
+        }
+    }
 
     // Event Handlers
     async handleCheck(event)
