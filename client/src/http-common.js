@@ -4,11 +4,11 @@ export default axios.create({
     baseURL: ()=>{
         if(process.env.NODE_ENV=="production")
         {
-            "https://192.168.86.165:3000/api"
+            return ("https://192.168.86.165:3000/api");
         }
         else
         {
-            "https://red-todo-list.herokuapp.com/api"
+            return ("https://red-todo-list.herokuapp.com/api");
         }
     },
     headers: {
