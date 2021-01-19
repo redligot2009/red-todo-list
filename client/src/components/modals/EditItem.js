@@ -2,10 +2,8 @@ import { Modal, Button, Form } from "react-bootstrap";
 import React, { Component } from "react";
 import ModalDialogBox from '../ModalDialogBox';
 
-// Import 
-
+// Import services
 import ItemDataService from '../../services/items.service';
-import axios from "axios";
 
 export default class EditItem extends ModalDialogBox
 {
@@ -63,7 +61,6 @@ export default class EditItem extends ModalDialogBox
                             as="input"
                             maxLength="50"
                             value={this.state.itemTitle}
-                            defaultValue={this.props.itemTitle}
                             placeholder="Enter item title here."
                             onChange={e => this.setState({ itemTitle: e.target.value })}
                         />
@@ -79,7 +76,6 @@ export default class EditItem extends ModalDialogBox
                             rows="3"
                             maxLength="150"
                             value={this.state.itemDescription}
-                            defaultValue={this.props.itemDescription}
                             placeholder="Enter item description here."
                             onChange={e => this.setState({ itemDescription: e.target.value })}
                         />

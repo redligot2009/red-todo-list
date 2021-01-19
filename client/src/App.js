@@ -85,10 +85,10 @@ export default class App extends Component
   }
 
   // DATABASE EVENTS
-  retrieveList ()
+  async retrieveList ()
   {
     console.log("Refreshed list items.");
-    ItemDataService.getAll()
+    await ItemDataService.getAll()
       .then(response=>{
         this.setState({
           listItems: response.data
@@ -125,7 +125,7 @@ export default class App extends Component
   // HANDLE LIST ITEM EVENTS
   handleDeleteItem = (itemId) =>
   {
-    console.log(itemId);
+    console.log("Item with id " + itemId + " deleted!");
     // Delete item on the UI
     const items = this.state.listItems.filter(item => item.id !== itemId);
     this.setState({listItems: items});
@@ -172,6 +172,7 @@ export default class App extends Component
         <AddItem
           show={this.handleShowModal("add-item")}
           onHide={this.handleCloseModal}
+          onAdd={this.retrieveList}
         />
         <div className="row d-flex flex-column align-items-center justify-content-center list-title">
           <div className="container-fluid" style={{maxWidth:750}}>

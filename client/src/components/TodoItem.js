@@ -22,17 +22,20 @@ export default class TodoItem extends Component
             itemDescription: this.props.itemDescription || '',
             checked: this.props.checked || false
         };
+        this.handleCheck = this.handleCheck.bind(this);
     }
 
     // Event Handlers
-    handleEdit(itemTitle,itemDescription)
+    async handleCheck(event)
     {
-        this.setState({openEditModal:true, modalName:''})
-    }
-
-    handleDelete()
-    {
-        //alert("Deleting an item");
+        this.setState({checked : event.target.checked});
+        await ItemDataService.update(this.state.id,{checked: event.target.checked})
+            .then(res=>{
+                console.log("Item with id " + this.state.id + " checked / unchecked successfully!");
+            })
+            .catch(e=>{
+                console.log(e);
+            });
     }
 
     // Render Component
@@ -59,7 +62,8 @@ export default class TodoItem extends Component
                             <input 
                                 className="item-status-checkbox custom-control-input" 
                                 type="checkbox" 
-                                defaultChecked={this.state.checked} 
+                                checked={this.state.checked} 
+                                onChange={this.handleCheck}
                             />
                             <label className="custom-control-label">
                                 <span className="text-hide"> Invisible </span>
@@ -80,9 +84,7 @@ export default class TodoItem extends Component
                             className="item-edit btn btn-outline-primary"
                             onClick={() => {
                                 this.setState({
-                                    openEditModal:true,
-                                    itemTitle: this.props.itemTitle,
-                                    itemDescription: this.props.itemDescription
+                                    openEditModal:true
                                 })
                             }}
                         >
@@ -91,7 +93,7 @@ export default class TodoItem extends Component
                         <button 
                             type="button" 
                             className="item-delete btn btn-outline-primary"
-                            onClick={()=>this.props.onDelete(this.props.id)}
+                            onClick={()=>this.props.onDelete(this.state.id)}
                         >
                             <FontAwesomeIcon icon={faTrash} />
                         </button>
