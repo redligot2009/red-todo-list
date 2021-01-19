@@ -24,6 +24,8 @@ export default class TodoItem extends Component
         this.handleCheck = this.handleCheck.bind(this);
     }
 
+    componentDidUpdate
+
     // Event Handlers
     async handleCheck(event)
     {

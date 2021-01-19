@@ -11,8 +11,9 @@ export default class EditListSettings extends ModalDialogBox
     {
         super(props, "edit-list-settings");
         this.state = {
-            listTitle: props.listSettings.listTitle || '',
-            listDescription: props.listSettings.listDescription || ''
+            listTitle: props.listTitle,
+            listDescription: props.listDescription,
+            setInitialState: false
         };
         this.countCharacters = this.countCharacters.bind(this);
         this.handleTitleChange = this.handleTitleChange.bind(this);

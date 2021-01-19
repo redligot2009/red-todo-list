@@ -66,22 +66,13 @@ export default class App extends Component
       openModal: false, 
       modalName: "",
       listItems: [],
-      listSettings: {
-        listTitle: '',
-        listDescription: ""
-      }
+      listSettings: {}
     };
     this.handleCloseModal = this.handleCloseModal.bind(this);
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.retrieveList = this.retrieveList.bind(this);
     this.retrieveListSettings = this.retrieveListSettings.bind(this);
-  }
-
-  componentDidMount()
-  {
-    // TEST CODE
-    //this.populateList();
-
+    
     // Get all items in list from database through backend REST API.
     this.retrieveList();
 
@@ -182,13 +173,16 @@ export default class App extends Component
   {
     return (
       <div className="container-fluid d-flex flex-column justify-content-center h-100 overflow-auto App">
-        <EditListSettings 
-          listSettings={this.state.listSettings}
-          show={this.handleShowModal("edit-list-settings")} 
-          onHide={this.handleCloseModal}
-          onEdit={this.retrieveListSettings}
-          //onEdit={}
-        />
+        {
+          this.state.listSettings.listTitle ? (<EditListSettings 
+            listTitle={this.state.listSettings.listTitle}
+            listDescription={this.state.listSettings.listDescription}
+            show={this.handleShowModal("edit-list-settings")} 
+            onHide={this.handleCloseModal}
+            onEdit={this.retrieveListSettings}
+            //onEdit={}
+          />) : ''
+        }
         <AddItem
           show={this.handleShowModal("add-item")}
           onHide={this.handleCloseModal}
