@@ -17,7 +17,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cd server && npm start && cd..",
     "build": "cd client && npm run build && cd..",
-    "serve": "cd server && npm run serve"
+    "serve": "cd server && npm run serve",
+    "heroku-postbuild": "npm install && npm run build && npm run serve"
   },
   "repository": {
     "type": "git",
