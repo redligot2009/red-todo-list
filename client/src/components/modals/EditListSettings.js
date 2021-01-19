@@ -1,18 +1,57 @@
-
 import { Modal, Button, Form } from "react-bootstrap";
 import React, { Component } from "react";
 import ModalDialogBox from '../ModalDialogBox';
+
+// Import services
+import ListSettingsDataService from '../../services/listSettings.service';
 
 export default class EditListSettings extends ModalDialogBox 
 {
     constructor(props)
     {
         super(props, "edit-list-settings");
+        this.state = {
+            listTitle: props.listSettings.listTitle || '',
+            listDescription: props.listSettings.listDescription || ''
+        };
+        this.countCharacters = this.countCharacters.bind(this);
+        this.handleTitleChange = this.handleTitleChange.bind(this);
+        this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
     }
 
-    countCharacters = (event) => {
+    async saveChanges()
+    {
+        super.saveChanges();
+        let data = {
+            listTitle: this.state.listTitle,
+            listDescription: this.state.listDescription
+        };
+        await ListSettingsDataService.update(data)
+            .then(res=>{
+                console.log("List Settings updated successfully!");
+            })
+            .catch(e=>{
+                console.log(e);
+            });
+        this.props.onEdit();
+    }
+
+    countCharacters (event) 
+    {
         const charCount = event.target.value.length;
         this.setState({[event.target.id + '_length']: charCount})
+    }
+
+    handleTitleChange(event)
+    {
+        this.setState({listTitle: event.target.value});
+        this.countCharacters(event);
+    }
+
+    handleDescriptionChange(event)
+    {
+        this.setState({listDescription: event.target.value});
+        this.countCharacters(event);
     }
 
     renderHeader()
@@ -49,12 +88,12 @@ export default class EditListSettings extends ModalDialogBox
                         id="list_title_input"
                         as="input" 
                         maxLength={maxTitleLength}
-                        onChange={this.countCharacters}
-                        defaultValue={this.props.listSettings.title}
+                        onChange={this.handleTitleChange}
+                        value={this.state.listTitle}
                         placeholder="Enter list title here."
                     />
                     <Form.Text>
-                        ({this.state.list_title_input_length || this.props.listSettings.title.length} / {maxTitleLength})
+                        ({this.state.list_title_input_length || this.state.listTitle.length} / {maxTitleLength})
                     </Form.Text>
                 </Form.Group>
                 <Form.Group>
@@ -66,12 +105,12 @@ export default class EditListSettings extends ModalDialogBox
                         as="textarea"
                         rows="3"
                         maxLength={maxDescriptionLength}
-                        defaultValue={this.props.listSettings.description}
-                        onChange={this.countCharacters}
+                        value={this.state.listDescription}
+                        onChange={this.handleDescriptionChange}
                         placeholder="Enter list description here."
                     />
                     <Form.Text>
-                        ({this.state.list_description_textarea_length || this.props.listSettings.description.length} / {maxDescriptionLength})
+                        ({this.state.list_description_textarea_length || this.state.listDescription.length} / {maxDescriptionLength})
                     </Form.Text>
                 </Form.Group>
             </Form>

@@ -14,6 +14,7 @@ import AddItem from './components/modals/AddItem';
 
 // SERVICES
 import ItemDataService from './services/items.service';
+import ListSettingsDataService from './services/listSettings.service';
 
 export default class App extends Component
 {
@@ -66,13 +67,14 @@ export default class App extends Component
       modalName: "",
       listItems: [],
       listSettings: {
-        title: 'My List',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sollicitudin eget tortor vel aliquam. Curabitur velit lectus, sodales in massa tempor, co'
+        listTitle: '',
+        listDescription: ""
       }
     };
     this.handleCloseModal = this.handleCloseModal.bind(this);
     this.handleOpenModal = this.handleOpenModal.bind(this);
     this.retrieveList = this.retrieveList.bind(this);
+    this.retrieveListSettings = this.retrieveListSettings.bind(this);
   }
 
   componentDidMount()
@@ -80,8 +82,11 @@ export default class App extends Component
     // TEST CODE
     //this.populateList();
 
-    // Get all items in list from database through backend REST api
+    // Get all items in list from database through backend REST API.
     this.retrieveList();
+
+    // Get list settings from database through backend REST API.
+    this.retrieveListSettings();
   }
 
   // DATABASE EVENTS
@@ -93,7 +98,20 @@ export default class App extends Component
         this.setState({
           listItems: response.data
         });
-        this.state.listItems = response.data;
+      })
+      .catch(e=>{
+        console.log(e);
+      });
+  }
+
+  async retrieveListSettings()
+  {
+    console.log("Retrieved list settings.");
+    await ListSettingsDataService.get()
+      .then(response=>{
+        this.setState({
+          listSettings: response.data
+        });
       })
       .catch(e=>{
         console.log(e);
@@ -168,6 +186,8 @@ export default class App extends Component
           listSettings={this.state.listSettings}
           show={this.handleShowModal("edit-list-settings")} 
           onHide={this.handleCloseModal}
+          onEdit={this.retrieveListSettings}
+          //onEdit={}
         />
         <AddItem
           show={this.handleShowModal("add-item")}
@@ -176,8 +196,8 @@ export default class App extends Component
         />
         <div className="row d-flex flex-column align-items-center justify-content-center list-title">
           <div className="container-fluid" style={{maxWidth:750}}>
-            <h1> {this.state.listSettings.title} </h1>
-            <p> {this.state.listSettings.description} </p>
+            <h1> {this.state.listSettings.listTitle} </h1>
+            <p> {this.state.listSettings.listDescription} </p>
           </div>
         </div>
         <div className="row list-contents h-50">

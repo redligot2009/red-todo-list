@@ -14,4 +14,6 @@ db.url = dbConfig.url;
 */
 db.items = require("./ItemModel.js")(mongoose);
 
+db.listSettings = require("./ListSettingsModel.js") (mongoose)
+
 module.exports = db;

@@ -1,5 +1,4 @@
 var Item = require('../models/ItemModel');
-var mongoose = require('mongoose');
 
 listItems = [
 ];
@@ -20,7 +19,6 @@ exports.create = (req,res) =>
         itemDescription: req.body.itemDescription,
         checked: req.body.checked || false
     });
-
     item
         .save(item)
         .then(data=>{
@@ -28,7 +26,7 @@ exports.create = (req,res) =>
         })
         .catch(err=>{
             res.status(500).send({
-                message: err.message || "Some error occurred while creating the Tutorial."
+                message: err.message || "Some error occurred while creating the Item."
             });
         });
 };

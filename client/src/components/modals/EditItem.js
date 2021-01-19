@@ -11,9 +11,9 @@ export default class EditItem extends ModalDialogBox
     {
         super(props,"edit-item");
         this.state = {
-            id: this.props.id,
-            itemTitle: this.props.itemTitle,
-            itemDescription: this.props.itemDescription
+            id: props.id,
+            itemTitle: props.itemTitle,
+            itemDescription: props.itemDescription
         };
     }
     

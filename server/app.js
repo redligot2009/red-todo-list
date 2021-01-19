@@ -4,9 +4,6 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
 
-//Routes
-var itemsRouter = require('./routes/items');
-
 //Load up Express + its dependencies
 var app = express();
 
@@ -27,10 +24,17 @@ var corsOptions=
 
 app.use(cors());
 
+//SET UP ROUTES
+
 // Set up items.js router
+var itemsRouter = require('./routes/items');
 app.use('/api/items/',itemsRouter);
 
-// Connect and set up MongoDB + Mongoose
+// Set up listSettings.js router
+var listSettingsRouter = require('./routes/settings');
+app.use('/api/settings/',listSettingsRouter);
+
+// CONNECT AND SET UP MongoDB + Mongoose
 
 const db = require("./models");
 

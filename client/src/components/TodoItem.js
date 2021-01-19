@@ -7,7 +7,6 @@ import EditItem from './modals/EditItem';
 import './TodoItem.scss';
 
 // Import Axios services
-
 import ItemDataService from '../services/items.service';
 
 export default class TodoItem extends Component 
@@ -16,11 +15,11 @@ export default class TodoItem extends Component
     {
         super(props);
         this.state = {
-            id: this.props.id || 0,
+            id: props.id || 0,
             openEditModal: false,
-            itemTitle: this.props.itemTitle || '',
-            itemDescription: this.props.itemDescription || '',
-            checked: this.props.checked || false
+            itemTitle: props.itemTitle || '',
+            itemDescription: props.itemDescription || '',
+            checked: props.checked || false
         };
         this.handleCheck = this.handleCheck.bind(this);
     }
