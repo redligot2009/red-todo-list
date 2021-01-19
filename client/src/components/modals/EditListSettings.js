@@ -37,6 +37,15 @@ export default class EditListSettings extends ModalDialogBox
         this.props.onEdit();
     }
 
+    closeModal()
+    {
+        this.setState({
+            listTitle: this.props.listTitle,
+            listDescription: this.props.listDescription
+        });
+        super.closeModal();
+    }
+
     countCharacters (event) 
     {
         const charCount = event.target.value.length;

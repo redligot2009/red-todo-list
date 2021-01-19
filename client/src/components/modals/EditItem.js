@@ -16,6 +16,16 @@ export default class EditItem extends ModalDialogBox
             itemDescription: props.itemDescription
         };
     }
+
+    closeModal ()
+    {
+        this.setState({
+            id: this.props.id,
+            itemTitle: this.props.itemTitle,
+            itemDescription: this.props.itemDescription
+        });
+        super.closeModal();
+    }
     
     async saveChanges ()
     {

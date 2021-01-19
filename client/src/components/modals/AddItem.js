@@ -16,18 +16,18 @@ export default class AddItem extends ModalDialogBox
         };
     }
 
-    resetState ()
+    closeModal ()
     {
-        super.resetState();
         this.setState({
             itemTitle:'',
             itemDescription:''
         });
+        super.closeModal();
     }
     
     async saveChanges()
     {
-        if(this.state.itemTitle.length == 0 || this.state.itemDescription.length==0)
+        if(this.state.itemTitle.length === 0 || this.state.itemDescription.length === 0)
         {
             console.log("Item fields must not be empty!");
             return false;

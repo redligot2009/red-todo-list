@@ -12,22 +12,16 @@ class ModalDialogBox extends Component
         this.closeModal = this.closeModal.bind(this);
         this.openModal = this.openModal.bind(this);
         this.saveChanges = this.saveChanges.bind(this);
-        this.resetState = this.resetState.bind(this);
     }
 
     openModal ()
     {
         this.setState({show:true});
     }
-
-    resetState()
-    {
-        this.setState({show:false});
-    }
     
     closeModal ()
     {
-        this.resetState();
+        this.setState({show:false});
         this.props.onHide();
     }
 
